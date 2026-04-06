@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gesture Detect — Live Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="gesture-dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<header>
+  <div class="brand">GESTURE&middot;DETECT</div>
+  <div class="header-right">
+    <span class="demo-badge">Live Demo</span>
+    <div class="status-pill">
+      <div class="dot" id="status-dot"></div>
+      <span id="status-text">idle</span>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== LOADING BAR ==================== -->
+<div class="loading-bar" id="loading-bar">
+  <div class="loading-bar-fill"></div>
+</div>
+
+<!-- ==================== MAIN ==================== -->
+<main>
+
+  <!-- VIDEO PANEL -->
+  <div class="video-panel" id="video-panel">
+    <div id="webcam-container" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">
+      <div class="no-feed">
+        <div class="icon">&#9672;</div>
+        <div>No feed active</div>
+        <div class="sub">Select a camera and press START</div>
+      </div>
+    </div>
+    <canvas id="output-canvas" style="display:none;max-width:100%;max-height:100%"></canvas>
+    <canvas id="particle-canvas"></canvas>
+    <video id="input-video" playsinline></video>
+    <div id="effect-overlay"></div>
+    <div id="effect-text"></div>
+    <div class="video-overlay">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <div class="top-label" id="top-label">LIVE DETECTION</div>
+    </div>
+    <div class="gesture-badge" id="gesture-badge">—</div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="section">
+      <div class="section-label">Camera Device</div>
+      <select class="cam-select" id="cam-select" onchange="onCamChange()">
+        <option value="">Detecting cameras...</option>
+      </select>
+      <div class="row">
+        <button class="btn" id="btn-start" onclick="startDetection()">START</button>
+        <button class="btn btn-stop" id="btn-stop" onclick="stopDetection()" disabled>STOP</button>
+      </div>
+      <div class="hint">Show your hand to the camera. Each recognized gesture triggers a unique visual effect on screen.</div>
+    </div>
+
+    <div class="section" style="flex:1;overflow-y:auto">
+      <div class="section-label">Gestures</div>
+      <div class="gesture-list" id="gesture-list"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Event Log</div>
+      <div class="log-list" id="log-list">
+        <div class="log-entry">
+          <span class="log-time">--:--:--</span>
+          <span class="log-msg">System ready</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <span>GESTURE&middot;DETECT &mdash; MediaPipe Hands</span>
+  <span id="res-readout" style="color:var(--muted)">— res</span>
+  <span id="fps-counter">— fps</span>
+</footer>
+
+<script src="gesture-dashboard.js"></script>
+
+</body>
+</html>
